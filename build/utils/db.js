@@ -8,12 +8,12 @@ require('dotenv').config();
 const dbUrl = process.env.DB_URL || '';
 const connectDB = async () => {
     try {
-        await mongoose_1.default.connect(dbUrl).then((data) => {
+        await mongoose_1.default.connect(dbUrl, { rejectUnauthorized: false, tlsAllowInvalidCertificates: true, tls: true }).then((data) => {
             console.log(`Database connected with ${data.connection.host}`);
         });
     }
     catch (error) {
-        console.log(error.message);
+        console.log("database error:- ", error.message);
         setTimeout(connectDB, 5000);
     }
 };
